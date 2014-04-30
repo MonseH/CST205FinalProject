@@ -1,86 +1,59 @@
-from moviepy.editor import *
+#Prgrogam will construct a GUI using wxpython.
+import wx
 
+class Display(wx.Frame):
 
-def regular_one():
-    regular = VideoFileClip("./brotherBear.mp4").\
-                  subclip(42,43).\
-                  resize(0.5).\
-                  to_gif("regular.gif",fps = None,program = 'ffmpeg') 
-    #VideoFileClip.preview()
+    #Constructor
+    #precondition: passes self, *args, & *kwargs
+    #postcondition: defines the GUI
+    def __init__(self, *args, **kwargs):
+        super(Display, self).__init__(*args, **kwargs)     
+        self.InitUI()
 
-def cropping():
-    VideoFileClip("./brotherBear.mp4").\
-                   subclip(12.4,13.4).\
-                   resize(0.5).\
-                   crop(x1=145,x2=400).\
-                   to_gif("cropping.gif", fps = None, program = 'ffmpeg')
-def freezing_region():
-    first = VideoFileClip("./brotherBear.mp4").\
-              subclip(12,13).\
-              resize(.4)
+    #precondition:passes self
+    #postcondition:creates all buttons, menus, and text boxes
+    def InitUI(self):    
 
-    second = first.\
-              crop(x2= first.w/2).\
-              to_ImageClip(0.2).\
-              set_duration(first.duration)
+        self.SetBackgroundColour("sky blue")    #sets background color
+        self.SetSize((250, 250))                #sets GUI size
+        self.SetTitle('DIY GIF!')               #GUI title
+        self.Centre()
+        
+        menuBar = wx.MenuBar()  #defines menu bar  
+        fileMenu = wx.Menu()    #defines files menu
+        editMenu = wx.Menu()    #denies edit menu
 
-    CompositeVideoClip([first, second]).\
-              to_gif("frozen.gif", fps= 15, program = 'ffmpeg')
-
-
-def time_symetrize(clip):   #forward_backwards():
-    """ Returns the clip played forwards then backwards. In case
-    you are wondering, vfx (short for Video FX) is loaded by
-    >>> from moviepy.editor import * """
-    return concatenate([clip, clip.fx( vfx.time_mirror )])
-
-def forward_backwards():
-    VideoFileClip("./brotherBear.mp4").\
-              subclip(12, 13).\
-              resize(0.5).\
-              crop(x1=189, x2=433).\
-              fx( time_symetrize ).\
-              to_gif('backward.gif', fps = 15, program = 'ffmpeg')
-
-def looping():
-    castle = VideoFileClip("./brotherBear.mp4").\
-                  subclip(12,13).\
-                  speedx(0.2).\
-                  resize(.4)
-
-    d = castle.duration
-    castle = castle.crossfadein(d/2)
-
-    CompositeVideoClip([castle,castle.set_start(d/2),castle.set_start(d)]).\
-                   subclip(d/2, 3*d/2).\
-                   to_gif('looping.gif', fps=15, program = 'fffmpeg')    
-
-#ADDING TEXT!!!!
-##def adding_text():
-##    kodak = VideoFileClip("./brotherBear.mp4").\
-##            subclip(12,13).\
-##            resize(.5).\
-##            speedx(0.5).\
-##            fx( time_symetrize )
-##
-##    # Many options are available for the text (requires ImageMagick)
-##    text = TextClip("Kodak!",
-##                    fontsize=30, color='green',
-##                    font='Amiri-Bold', interline=-5).\
-##            set_pos(20,30).\
-##            set_duration(kodak.duration)
-##
-##    CompositeVideoClip([kodak, text]).\
-##            to_gif('letter.gif', fps=10, program = 'ffmpeg')
-
-
-def main():
-##    regular_one()
-##    cropping()
-##    freezing_region()
-##    forward_backwards()
-#    adding_text()
-    looping()
+        menuBar.Append(editMenu, 'Edit')
+        menuBar.Append(fileMenu, '&File')
+        self.SetMenuBar(menuBar)
+        fitem = fileMenu.Append(wx.ID_EXIT, 'Quit...', 'Quit application') #adds a quit option to file menu 
+        fitem1 = fileMenu.Append(wx.ID_EXIT, 'Select', 'Select Video')      #adds a select option to file menu
+        
+        self.Bind(wx.EVT_MENU, self.OnQuit, fitem)  #assigns OnQuit function to quit option
+        self.Bind(wx.EVT_MENU, self.Select, fitem1) #assigns Select function to select option
 
     
+        self.quote1 = wx.StaticText(self, label="Starting Time: ", pos=(20, 10))    #text label
+        self.quote2 = wx.StaticText(self, label="Ending Time: ", pos=(20, 30))      #text label
+        self.Show()
+        clearButton = wx.Button(self, wx.ID_CLEAR, "Clear", pos=(20, 50))           #makes a button
+        selectButton = wx.Button(self, wx.ID_EXIT, "Select video", pos=(20, 80))
+
+        self.Show(True)
+         
+    #creates quit option in file menu
+    def OnQuit(self, e):
+        self.Close()
+    #creates select option in file menu
+    def Select(self, e):
+        self.Select()
+
+def main():
+    ex = wx.App()
+    Display(None)
+    ex.MainLoop()
+
+
 main()
+
+ 
