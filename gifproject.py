@@ -1,4 +1,7 @@
-
+#Monse Hernandez & Claudia Garcia
+#Final project
+#CST205 Spring 2014
+#This code will help you create a GIF based on your input through a GUI
 import wx
 from moviepy.editor import *
 class Display(wx.Frame):
@@ -95,10 +98,7 @@ class Display(wx.Frame):
     #postcondition:creates the Regular type GIF
     def Regular(self, event):
         time1 = self.t1.GetValue()      #Stores values into function variables
-        positiveCheck(time1)
         time2 = self.t2.GetValue()
-        positiveCheck(time2)
-        intervalCheck(time1, time2)
         Size = self.siz.GetValue()
         gifName = self.gName.GetValue()
         tmp = checkGIFName(gifName)
@@ -114,10 +114,7 @@ class Display(wx.Frame):
     #postcondition:creates creates the Backwards/Forwards GIF     
     def BackwardsForwards(self, event):
         time1 = self.t1.GetValue()      #Stores values into function variables
-        positiveCheck(time1)
         time2 = self.t2.GetValue()
-        positiveCheck(time2)
-        intervalCheck(time1, time2)
         Size = self.siz.GetValue()
         gifName = self.gName.GetValue()
         tmp = checkGIFName(gifName)
@@ -133,10 +130,7 @@ class Display(wx.Frame):
     #postcondition:creates Freeze type GIF
     def Freeze(self, event):
         time1 = self.t1.GetValue()      #Stores values into function variables
-        positiveCheck(time1)
         time2 = self.t2.GetValue()
-        positiveCheck(time2)
-        intervalCheck(time1, time2)
         Size = self.siz.GetValue()
         speed = self.spe.GetValue()
         snap = self.sna.GetValue()
@@ -162,12 +156,10 @@ class Display(wx.Frame):
     #postcondition:creates Fade type GIF
     def Fade(self, event):
         time1 = self.t1.GetValue()      #Stores values into function variables
-        positiveCheck(time1)
         time2 = self.t2.GetValue()
-        positiveCheck(time2)
-        intervalCheck(time1, time2)
         Size = self.siz.GetValue()
         speed = self.spe.GetValue()
+        snap = self.sna.GetValue()
         gifName = self.gName.GetValue()
         tmp = checkGIFName(gifName)
         gifName = tmp
@@ -189,10 +181,7 @@ class Display(wx.Frame):
     #postcondition:creates Loop type GIF
     def Loop(self, event):
         time1 = self.t1.GetValue()      #Stores values into function variables
-        positiveCheck(time1)
         time2 = self.t2.GetValue()
-        positiveCheck(time2)
-        intervalCheck(time1, time2)
         Size = self.siz.GetValue()
         speed = self.spe.GetValue()
         gifName = self.gName.GetValue()
@@ -216,10 +205,7 @@ class Display(wx.Frame):
     #postcondition:creates Crop type GIF
     def Crop(self, event):
         time1 = self.t1.GetValue()      #Stores values into function variables
-        positiveCheck(time1)
         time2 = self.t2.GetValue()
-        positiveCheck(time2)
-        intervalCheck(time1, time2)
         Size = self.siz.GetValue()
         speed = self.spe.GetValue()
         gifName = self.gName.GetValue()
